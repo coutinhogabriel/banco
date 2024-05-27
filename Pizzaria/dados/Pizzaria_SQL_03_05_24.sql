@@ -1,0 +1,137 @@
+-- Geração de Modelo físico
+-- Sql ANSI 2003 - brModelo.
+
+
+
+CREATE TABLE Cliente (
+CPF Varchar(14) Not Null PRIMARY KEY,
+Endereco Varchar(100) Not null,
+Nome Varchar(80) Not null,
+Telefone Varchar(15) Not null
+);
+
+CREATE TABLE Pedido (
+Num_Pedido Int Not Null PRIMARY KEY,
+Total_Pedido Decimal(7,2) Not Null,
+Data_Pedido Date Not Null,
+CPF Varchar(14) Not Null,
+FOREIGN KEY(CPF) REFERENCES Cliente (CPF)
+);
+
+CREATE TABLE Produto (
+Id_Produto Int Not Null PRIMARY KEY,
+Preco Decimal (7,2) Not Null,
+Nome Varchar(50) Not Null,
+Estoque Int Not Null
+);
+
+CREATE TABLE Contem (
+Quantidade Varchar(255) ,
+Comprovante Varchar(255) PRIMARY KEY,
+Id_Produto Int Not Null,
+Num_Pedido Int Not Null,
+FOREIGN KEY(Id_Produto) REFERENCES Produto (Id_Produto),
+FOREIGN KEY(Num_Pedido) REFERENCES Pedido (Num_Pedido)
+);
+SELECT *FROM CLIENTE
+-- Inserção 1
+INSERT INTO CLIENTE VALUES ('12','RUA SENAI','ZECA','19994234073');
+-- Inserção 2
+INSERT INTO CLIENTE VALUES ('13','AVENIDA BRASIL','MARIA','21876543210');
+-- Inserção 3
+INSERT INTO CLIENTE VALUES ('14','RUA DAS FLORES','JOÃO','21876548903');
+-- Inserção 4
+INSERT INTO CLIENTE VALUES ('15','RUA SÃO PAULO','ANA','11987654321');
+-- Inserção 5
+INSERT INTO CLIENTE VALUES ('16','AVENIDA ATLÂNTICA','PEDRO','41833210987');
+-- Inserção 6
+INSERT INTO CLIENTE VALUES ('17','RUA DA PRAIA','CARLA','51876543210');
+-- Inserção 7
+INSERT INTO CLIENTE VALUES ('18','AVENIDA PAULISTA','FERNANDO','11234567890');
+-- Inserção 8
+INSERT INTO CLIENTE VALUES ('19','RUA DOS JASMINS','LUCIANA','31890987654');
+-- Inserção 9
+INSERT INTO CLIENTE VALUES ('20','AVENIDA LIBERDADE','GABRIEL','21890123456');
+-- Inserção 10
+INSERT INTO CLIENTE VALUES ('21','RUA DAS PALMEIRAS','SARA','11876543210');
+
+SELECT *FROM PEDIDO
+-- Inserção 1
+INSERT INTO Pedido VALUES (1, 150.50, '2024-05-03', '12');
+-- Inserção 2
+INSERT INTO Pedido VALUES (2, 99.99, '2024-05-03', '13');
+-- Inserção 3
+INSERT INTO Pedido VALUES (3, 75.25, '2024-05-02', '14');
+-- Inserção 4
+INSERT INTO Pedido VALUES (4, 200.00, '2024-05-01', '15');
+-- Inserção 5
+INSERT INTO Pedido VALUES (5, 350.75, '2024-04-30', '16');
+-- Inserção 6
+INSERT INTO Pedido VALUES (6, 80.00, '2024-04-30', '17');
+-- Inserção 7
+INSERT INTO Pedido VALUES (7, 45.60, '2024-04-29', '18');
+-- Inserção 8
+INSERT INTO Pedido VALUES (8, 210.30, '2024-04-29', '19');
+-- Inserção 9
+INSERT INTO Pedido VALUES (9, 180.90, '2024-04-28', '20');
+-- Inserção 10
+INSERT INTO Pedido VALUES (10, 300.25, '2024-04-28', '21');
+
+SELECT *FROM PRODUTO
+
+-- Inserção 1
+INSERT INTO Produto VALUES (1, 25.99, 'Margherita', 50);
+-- Inserção 2
+INSERT INTO Produto VALUES (2, 28.99, 'Calabresa', 60);
+-- Inserção 3
+INSERT INTO Produto VALUES (3, 30.99, 'Quatro Queijos', 40);
+-- Inserção 4
+INSERT INTO Produto VALUES (4, 27.99, 'Frango com Catupiry', 45);
+-- Inserção 5
+INSERT INTO Produto VALUES (5, 32.99, 'Portuguesa', 55);
+-- Inserção 6
+INSERT INTO Produto VALUES (6, 29.99, 'Pepperoni', 50);
+-- Inserção 7
+INSERT INTO Produto VALUES (7, 31.99, 'Vegetariana', 35);
+-- Inserção 8
+INSERT INTO Produto VALUES (8, 33.99, 'Toscana', 40);
+-- Inserção 9
+INSERT INTO Produto VALUES (9, 30.99, 'Bacon com Milho', 50);
+-- Inserção 10
+INSERT INTO Produto VALUES (10, 34.99, 'Escarola com Bacon', 30);
+
+SELECT *FROM CONTEM
+
+-- Inserção 1
+INSERT INTO Contem VALUES ('1', 'CP00001', 1, 1);
+-- Inserção 2
+INSERT INTO Contem VALUES ('2', 'CP00002', 2, 2);
+-- Inserção 3
+INSERT INTO Contem VALUES ('1', 'CP00003', 3, 3);
+-- Inserção 4
+INSERT INTO Contem VALUES ('3', 'CP00004', 4, 4);
+-- Inserção 5
+INSERT INTO Contem VALUES ('2', 'CP00005', 5, 5);
+-- Inserção 6
+INSERT INTO Contem VALUES ('1', 'CP00006', 6, 6);
+-- Inserção 7
+INSERT INTO Contem VALUES ('2', 'CP00007', 7, 7);
+-- Inserção 8
+INSERT INTO Contem VALUES ('1', 'CP00008', 8, 8);
+-- Inserção 9
+INSERT INTO Contem VALUES ('3', 'CP00009', 9, 9);
+-- Inserção 10
+INSERT INTO Contem VALUES ('1', 'CP00010', 10, 10);
+
+--1. CONSULTAR INFORMAÇÕES SOBRE O CLIENTE ONDE TRAGA OS DADOS DE CPF E NOME
+SELECT CPF, NOME FROM CLIENTE; 
+--2. CONSULTAR NÚMERO OD PEDIDO E TOTAL NA TABELA PEDIDO
+SELECT NUM_PEDIDO, TOTAL_PEDIDO FROM PEDIDO;
+--3. CONSULTAR NOME PRODUTO E PREÇO DA TABELA PRODUTO
+SELECT NOME, PRECO FROM PRODUTO;
+--4. CONSULTAR PEDIDOS COM VALORES ACIMA DE 200
+SELECT *FROM PEDIDO WHERE TOTAL_PEDIDO >'200';
+--5. CONSULTAR PRODUTOS COM PREÇO ACIMA DE 30
+SELECT *FROM PEDIDO WHERE TOTAL_PEDIDO >'30';
+--6. APRESENTAR PIZZAS EM ORDEM CRESCENTE
+
